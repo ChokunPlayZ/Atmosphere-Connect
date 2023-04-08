@@ -54,7 +54,7 @@ void HAIntegration::configure()
 
     dustSensor.setName("Dust Density");
     dustSensor.setIcon("mdi:air-filter");
-    dustSensor.setUnitOfMeasurement("g");
+    dustSensor.setUnitOfMeasurement("µg/m³");
 
     Serial.print("Connecting to MQTT\n");
 
@@ -101,7 +101,7 @@ void HAIntegration::loop()
 {
     mqtt.loop();
 
-    if ((millis() - lastUpdateAt) > 2000)
+    if ((millis() - lastUpdateAt) > 1000)
     {
         digitalWrite(dustLed, LOW);
         delayMicroseconds(280);
@@ -121,8 +121,6 @@ void HAIntegration::loop()
             dustDensity = 0.00;
         }
         dustSensor.setValue(dustDensity);
-
-        Serial.println("Sent Update "+String(dustDensity));
 
         lastUpdateAt = millis();
     }
