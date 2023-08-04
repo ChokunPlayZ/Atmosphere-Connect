@@ -26,12 +26,13 @@ float dustDensity = 0;
 
 void HAIntegration::configure()
 {
-
-    Serial.println("Setting Up Home Assistant, Hang tight!");
-
     pinMode(LED_BUILTIN, OUTPUT);
     pinMode(0, OUTPUT);
     pinMode(dustLed, OUTPUT);
+
+    digitalWrite(LED_BUILTIN, 1);
+
+    Serial.println("Setting Up Home Assistant, Hang tight!");
 
     // Set device ID as MAC address
 
@@ -66,6 +67,8 @@ void HAIntegration::configure()
     {
         Serial.print("Could not connect to MQTT broker");
     }
+
+    digitalWrite(LED_BUILTIN, 0);
 }
 
 void HAIntegration::stateHandler(bool state, HAFan *sender)
